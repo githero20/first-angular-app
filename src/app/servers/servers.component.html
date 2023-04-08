@@ -1,5 +1,33 @@
-<app-server></app-server>
-<app-server></app-server>
-<app-server></app-server>
+<label for="server">Server Name</label>
+<!-- One Way Binding -->
+<!-- <input
+  type="text"
+  class="form form-control"
+  (input)="onUpdateServerName($event)"
+/> -->
+
+<!-- Two Way Binding -->
+<input type="text" class="form form-control" [(ngModel)]="serverName" />
+
+<p>{{ serverName }}</p>
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>
+  Add Server
+</button>
+<!-- [disabled] lets angular know we're binding the property to something -->
+<p [innerText]="allowNewServer"></p>
+<!-- adding a structural directive -->
+<p *ngIf="serverCreated; else noServer">{{ serverCreationStatus }}</p>
+
+<!-- local Reference, ngIf above uses this marker to control all the element within it -->
+<ng-template #noServer>
+  <p>No server was created</p>
+</ng-template>
+
+<!-- <app-server></app-server> -->
+<app-server *ngFor="let server of servers; let i = index"></app-server>
 <!-- <div class="app-servers">Free my mans</div> -->
 <!-- basically just passed multiple server components -->
